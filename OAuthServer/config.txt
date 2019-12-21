@@ -1,0 +1,9 @@
+IdentityServer:https://localhost:44300
+api1:https://localhost:44301
+MVCClient:https://localhost:44302
+AppServer:https://localhost:44303
+
+ClientId=mobile
+secret=DC5E30EC-B2AF-4FC2-9DD9-6D80382A63B8
+ClientId=mvc
+secret=8A1F6429-8E2D-478B-92FD-AE55E8BBEE08
