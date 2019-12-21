@@ -1,3 +1,2 @@
 # IdentityServer Example
-## Server
-## Client
+## Server && Client
