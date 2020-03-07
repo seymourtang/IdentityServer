@@ -39,7 +39,12 @@ namespace OAuthServer.Data.Migrations.AppDbMigrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    CardNumber = table.Column<string>(nullable: true),
+                    NickName = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    University = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

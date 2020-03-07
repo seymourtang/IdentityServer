@@ -5,22 +5,26 @@ using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace OAuthServer
 {
     public static class Configuration
     {
-        public static IEnumerable<IdentityResource> GetIdentityRessources() =>
+        public static IEnumerable<IdentityResource> GetIdentityResources() =>
             new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResources.Email(),
+                new IdentityResources.Phone(),
             };
 
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
             {
-                new ApiResource("api1")
+                new ApiResource("api1"),
+                new ApiResource("api2")
             };
 
         public static IEnumerable<Client> GetClients()=>
@@ -36,12 +40,11 @@ namespace OAuthServer
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris =
                     {
-                        "https://localhost:44302/signin-oidc",
-                        "https://localhost:44303/callback"
+                        "https://localhost:44303/signin-oidc",
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://localhost:44302/home/Index"
+                        "https://localhost:44303/sigin-callback-oidc"
                     },
                     AllowedScopes =
                     {
@@ -66,12 +69,15 @@ namespace OAuthServer
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://localhost:44302/"
+                        "https://localhost:44302/sigin-callback-oidc"
                         
                     },
                     AllowedScopes =
                     {
-                        "openid",
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Phone,
                         "api1",
                     },
                     AllowOfflineAccess = true,

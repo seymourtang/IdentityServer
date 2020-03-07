@@ -1,11 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace ApiResource
+namespace MyWebApi
 {
     public class Startup
     {
@@ -23,7 +30,7 @@ namespace ApiResource
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =>
                 {
                     c.Authority = "https://localhost:44300";
-                    c.Audience = "api1";
+                    c.Audience = "api2";
                     c.RequireHttpsMetadata = false;
                 });
             services.AddCors(config =>
@@ -45,11 +52,10 @@ namespace ApiResource
             }
 
             app.UseHttpsRedirection();
+
             app.UseCors("AllowAll");
             app.UseRouting();
-
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

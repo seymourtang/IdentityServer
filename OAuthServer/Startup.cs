@@ -1,3 +1,4 @@
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OAuthServer.Data;
+using OAuthServer.Models;
+using OAuthServer.Services;
 
 namespace OAuthServer
 {
@@ -21,30 +24,32 @@ namespace OAuthServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
             });
 
             // AddIdentity registers the services
-            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
                  {
                      config.Password.RequiredLength = 4;
                      config.Password.RequireDigit = false;
                      config.Password.RequireNonAlphanumeric = false;
                      config.Password.RequireUppercase = false;
                  })
-                .AddEntityFrameworkStores<AppDbContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddRoles<IdentityRole>()
+                .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>()
                 .AddDefaultTokenProviders();
             services.ConfigureApplicationCookie(config =>
             {
-                config.Cookie.Name = "MyBlog.Cookie";
+                config.Cookie.Name = "MyIdentityServer.Cookie";
                 config.LoginPath = "/oauth2/authorize";
                 config.LogoutPath = "/oauth2/logout";
             });
             var assembly = typeof(Startup).Assembly.GetName().Name;
             services.AddIdentityServer()
-                .AddAspNetIdentity<IdentityUser>()
+                .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = b => b.UseSqlServer(Configuration.GetConnectionString("SqlServer"),
@@ -55,7 +60,8 @@ namespace OAuthServer
                     options.ConfigureDbContext = b => b.UseSqlServer(Configuration.GetConnectionString("SqlServer"),
                         sql => sql.MigrationsAssembly(assembly));
                 })
-                .AddDeveloperSigningCredential();
+                .AddDeveloperSigningCredential()
+                .Services.AddTransient<IProfileService,ProfileServices>();
             services.AddControllersWithViews();
         }
 

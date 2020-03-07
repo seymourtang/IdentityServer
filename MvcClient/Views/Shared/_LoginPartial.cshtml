@@ -1,0 +1,27 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/Account/Manage/Index" title="Manage"><i class="fa fa-fw fa-cog" aria-hidden="true"></i>管理</a>
+        </li>*@
+
+    <div class="dropdown my-2 my-lg-0">
+        <a class="dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-user"></i> @User.Claims.FirstOrDefault(u => u.Type == "nickname")?.Value
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" asp-controller="Account" asp-action="UserInfo"><i class="fa fa-fw fa-address-book-o" aria-hidden="true"></i>个人信息</a>
+            <a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout"><i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>注销</a>
+        </div>
+    </div>
+
+
+    @*<li class="nav-item">
+            <a class="nav-link btn btn-link text-dark" asp-action="Logout" asp-controller="Home">注销</a>
+        </li>*@
+}
+else
+{
+
+    <a class="text-dark my-2 my-lg-0" asp-controller="Account" asp-action="UserInfo"><i class="fa fa-fw fa-sign-in" aria-hidden="true"></i>登录</a>
+
+}

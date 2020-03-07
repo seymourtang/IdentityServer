@@ -16,5 +16,6 @@ namespace OAuthServer.Models
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+
     }
 }

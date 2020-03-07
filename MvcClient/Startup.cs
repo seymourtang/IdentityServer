@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +13,7 @@ using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MvcClient
 {
@@ -22,9 +26,10 @@ namespace MvcClient
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             services.AddAuthentication(config =>
                 {
@@ -39,13 +44,26 @@ namespace MvcClient
                     config.ClientSecret = "8A1F6429-8E2D-478B-92FD-AE55E8BBEE08";
                     config.SaveTokens = true;
                     config.ResponseType = "code";
-                    config.SignedOutCallbackPath = "/Home/Index";
+                    config.SignedOutCallbackPath = "/signout-callback-oidc";
                     config.Scope.Clear();
                     config.Scope.Add("openid");
+                    config.Scope.Add("profile");
                     config.Scope.Add("api1");
+                    config.Scope.Add("api2");
                     config.Scope.Add("offline_access");
+                    config.GetClaimsFromUserInfoEndpoint = true;
+                    config.ClaimActions.MapUniqueJsonKey(ClaimTypes.Role,"isAdmin");
+                    config.ClaimActions.MapJsonKey(ClaimTypes.Gender,"gender");
+                    config.ClaimActions.MapJsonKey("nickname","nickname");
+                    config.ClaimActions.MapJsonKey("cardnumber", "cardnumber");
+                    config.ClaimActions.MapJsonKey("university", "university");
+                    config.ClaimActions.MapJsonKey("city", "city");
+
                 });
+            services.AddHttpClient();
             services.AddControllersWithViews();
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +76,6 @@ namespace MvcClient
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -66,7 +83,7 @@ namespace MvcClient
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            app.UseAuthentication(); 
 
             app.UseAuthorization();
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OAuthServer.Models;
 
 namespace OAuthServer
 {
@@ -18,10 +19,19 @@ namespace OAuthServer
             //using (var scope = host.Services.CreateScope())
             //{
             //    var userManager = scope.ServiceProvider
-            //        .GetRequiredService<UserManager<IdentityUser>>();
+            //        .GetRequiredService<UserManager<ApplicationUser>>();
 
-            //    var user = new IdentityUser("bob");
-            //    userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+            //    var user = new ApplicationUser
+            //    {
+            //        UserName = "tangxianmeng@live.com",
+            //        Email = "tangxianmeng@live.com",
+            //        Gender = "Male",
+            //        University = "Tongji University",
+            //        City = "Shanghai",
+            //        NickName = "ÈýÃÎ¸ç",
+            //        CardNumber = "1941756"
+            //    };
+            //    userManager.CreateAsync(user, "tangxianmeng").GetAwaiter().GetResult();
 
             //    scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>()
             //        .Database.Migrate();
@@ -41,7 +51,7 @@ namespace OAuthServer
 
             //    if (!context.IdentityResources.Any())
             //    {
-            //        foreach (var resource in Configuration.GetIdentityRessources())
+            //        foreach (var resource in Configuration.GetIdentityResources())
             //        {
             //            context.IdentityResources.Add(resource.ToEntity());
             //        }
