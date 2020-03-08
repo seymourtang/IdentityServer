@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiResource", "ApiResource\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcClient", "MvcClient\MvcClient.csproj", "{9437BC1D-A50C-4D2E-BFDE-E8ABA35F3B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWebApi", "MyWebApi\MyWebApi.csproj", "{B122C5F5-2952-47F4-BF94-02C1AC03A9FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWebApi", "MyWebApi\MyWebApi.csproj", "{B122C5F5-2952-47F4-BF94-02C1AC03A9FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp", "MyApp\MyApp.csproj", "{C4B02F64-1930-44FB-A3DF-F44DDA50B12D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B122C5F5-2952-47F4-BF94-02C1AC03A9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B122C5F5-2952-47F4-BF94-02C1AC03A9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B122C5F5-2952-47F4-BF94-02C1AC03A9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B02F64-1930-44FB-A3DF-F44DDA50B12D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B02F64-1930-44FB-A3DF-F44DDA50B12D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B02F64-1930-44FB-A3DF-F44DDA50B12D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B02F64-1930-44FB-A3DF-F44DDA50B12D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

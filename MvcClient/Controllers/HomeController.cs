@@ -33,29 +33,36 @@ namespace MvcClient.Controllers
         {
             return View();
         }
-
+        [Route("/Categories")]
         public IActionResult Categories()
         {
             return View();
         }
+        [Route("/Archives")]
 
         public IActionResult Archives()
         {
             return View();
         }
+        [Route("/Tags")]
 
         public IActionResult Tags()
         {
             return View();
         }
 
+        [Route("/Guestbook")]
+
         public IActionResult Guestbook()
         {
             return View();
         }
 
-        public IActionResult About()
+        [Route("/About")]
+
+        public async Task<IActionResult> About()
         {
+            var access_Token = await HttpContext.GetTokenAsync("access_token");
             return View();
         }
 

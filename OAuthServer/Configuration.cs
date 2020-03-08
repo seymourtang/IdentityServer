@@ -40,7 +40,7 @@ namespace OAuthServer
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris =
                     {
-                        "https://localhost:44303/signin-oidc",
+                        "https://localhost:44303/signin-oidc"
                     },
                     PostLogoutRedirectUris =
                     {
@@ -62,14 +62,14 @@ namespace OAuthServer
                     {
                         new Secret("8A1F6429-8E2D-478B-92FD-AE55E8BBEE08".ToSha256())
                     },
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     RedirectUris =
                     {
                         "https://localhost:44302/signin-oidc"
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://localhost:44302/sigin-callback-oidc"
+                        "https://localhost:44302/signout-callback-oidc"
                         
                     },
                     AllowedScopes =

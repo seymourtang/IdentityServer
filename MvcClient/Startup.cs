@@ -52,10 +52,13 @@ namespace MvcClient
                     config.Scope.Add("api2");
                     config.Scope.Add("offline_access");
                     config.GetClaimsFromUserInfoEndpoint = true;
-                    config.ClaimActions.MapUniqueJsonKey(ClaimTypes.Role,"isAdmin");
+                    config.ClaimActions.MapJsonKey(ClaimTypes.Role,"isAdmin");
                     config.ClaimActions.MapJsonKey(ClaimTypes.Gender,"gender");
+                    config.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "unique_name");
+                    config.ClaimActions.MapJsonKey(ClaimTypes.Email, "unique_name");
                     config.ClaimActions.MapJsonKey("nickname","nickname");
                     config.ClaimActions.MapJsonKey("cardnumber", "cardnumber");
+                    config.ClaimActions.MapJsonKey("phone_number", "phone_number");
                     config.ClaimActions.MapJsonKey("university", "university");
                     config.ClaimActions.MapJsonKey("city", "city");
 
